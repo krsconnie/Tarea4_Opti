@@ -119,9 +119,9 @@ def resolver_instancia_mtz(nombre_archivo, n, c, modo, env):
         "Nodos": n,
         "Variables": mdl.NumVars,
         "Restricciones": mdl.NumConstrs,
-        "Tiempo_s": round(mdl.Runtime, 4),
+        "Tiempo_s": round(mdl.Runtime, 2),
         "Gap_Porcentaje": round(gap, 2),
-        "Funcion_Objetivo": round(obj, 4)
+        "Funcion_Objetivo": round(obj, 2)
     }
 
     mdl.dispose()
