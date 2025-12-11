@@ -20,7 +20,7 @@ MIS_INSTANCIAS = [
 
 def leer_instancia_atsp(filepath):
     if not os.path.exists(filepath):
-        print(f"Error: File not found {filepath}")
+        print(f"Error: archivo no encontrado {filepath}")
         return None, None
 
     with open(filepath, 'r') as f:
@@ -45,7 +45,7 @@ def leer_instancia_atsp(filepath):
             break
             
     if n == 0 or start_index == -1:
-        print(f"Error: Parse failed for {filepath}")
+        print(f"Error: Parseo fallido {filepath}")
         return None, None
 
     valores_matriz = []
@@ -57,7 +57,7 @@ def leer_instancia_atsp(filepath):
             valores_matriz.append(int(token))
 
     if len(valores_matriz) != n * n:
-        print(f"Error: Data size mismatch in {filepath}")
+        print(f"Error: Tamaño no corresponde {filepath}")
         if len(valores_matriz) < n * n:
             return None, None
 
@@ -75,7 +75,7 @@ def resolver_instancia_mtz(nombre_archivo, n, c, modo, env):
     try:
         mdl = Model(f'TSP_MTZ_{nombre_archivo}', env=env)
     except GurobiError as e:
-        print(f"Error creating model: {e}")
+        print(f"Error creando modelo: {e}")
         return None
 
     mdl.setParam('TimeLimit', 3600)
@@ -131,7 +131,7 @@ if __name__ == "__main__":
     resultados_lista = []
     
     if not os.path.exists(CARPETA_INSTANCIAS):
-        print(f"Error: Directory '{CARPETA_INSTANCIAS}' not found.")
+        print(f"Error: Directorio '{CARPETA_INSTANCIAS}' no encontrado.")
         exit()
 
     try:
