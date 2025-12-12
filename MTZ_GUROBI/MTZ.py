@@ -9,7 +9,7 @@ options = {
     "LICENSEID": 2734085,
 }
 # Modo puede ser acotado o no_acotado
-MODO = "acotado" # en el paper dicen que es mejor no acotarlo para el solver, pero el problema general lo formula así
+MODO = "no_acotado" # en el paper dicen que es mejor no acotarlo para el solver, pero el problema general lo formula así
  
 CARPETA_INSTANCIAS = "/home/coni/Tarea4_Opti/MTZ_GUROBI/instancias" # sSte formato me funciona más que poner "instancias" sola (no lo encuentra), no sé porque
 ARCHIVO_SALIDA = f'resultados_mtz_{MODO}.csv'
