@@ -2,20 +2,22 @@ import pandas as pd
 import os
 from gurobipy import *
 
+# No me roben la licencia porfavor :C
 options = {
     "WLSACCESSID": "291dcd15-62ac-4c10-9cf8-3195e3506067",
     "WLSSECRET": "bd688515-ce3d-4361-a937-350ca6c3990f",
     "LICENSEID": 2734085,
 }
-
-MODO = "acotado"
-CARPETA_INSTANCIAS = "/home/coni/Tarea4_Opti/MTZ_GUROBI/instancias"
+# Modo puede ser acotado o no_acotado
+MODO = "acotado" # en el paper dicen que es mejor no acotarlo para el solver, pero el problema general lo formula así
+ 
+CARPETA_INSTANCIAS = "/home/coni/Tarea4_Opti/MTZ_GUROBI/instancias" # sSte formato me funciona más que poner "instancias" sola (no lo encuentra), no sé porque
 ARCHIVO_SALIDA = f'resultados_mtz_{MODO}.csv'
 
 MIS_INSTANCIAS = [
-    'br17.atsp', 'ftv33.atsp', 'ftv55.atsp', 'ftv64.atsp', 
-    'ftv70.atsp', 'kro124p.atsp', 'ftv170.atsp', 
-    'rbg323.atsp', 'rbg358.atsp', 'rbg403.atsp'
+    'br17.atsp', 'ftv33.atsp', 'ftv55.atsp', 'ftv64.atsp',  # 4 instancias pequeñas
+    'ftv70.atsp', 'kro124p.atsp', 'ftv170.atsp', # 3 medianas
+    'rbg323.atsp', 'rbg358.atsp', 'rbg403.atsp' # 3 grandes, aunque 403 se sale un poco del rango específicado pero no por tanto
 ]
 
 def leer_instancia_atsp(filepath):
@@ -30,7 +32,7 @@ def leer_instancia_atsp(filepath):
     start_index = -1
 
     for i, token in enumerate(tokens):
-        if token in ["DIMENSION:", "DIMENSION"]:
+        if token in ["DIMENSION:"]:
             if i + 1 < len(tokens):
                 if tokens[i+1] == ":":
                     n = int(tokens[i+2])
@@ -73,7 +75,7 @@ def resolver_instancia_mtz(nombre_archivo, n, c, modo, env):
     I_u = [i for i in range(1, n)]  
 
     try:
-        mdl = Model(f'TSP_MTZ_{nombre_archivo}', env=env)
+        mdl = Model(f'ATSP_MTZ_{nombre_archivo}', env=env)
     except GurobiError as e:
         print(f"Error creando modelo: {e}")
         return None
